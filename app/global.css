@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+body{
+    max-width: 80vw;
+    margin: 0 auto;
+    font-family: geist, sans-serif;
+}
