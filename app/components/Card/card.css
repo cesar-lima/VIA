@@ -1,0 +1,103 @@
+a{
+    text-decoration: none;
+}
+
+a:visited {
+    color: #ffffff;
+}
+
+.card-container {
+    border: 4px solid #f0efd5;
+    box-shadow: 8px 8px 0px #000;
+    background: black;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    margin: 38px 20px 20px 20px;
+    cursor: pointer;
+}
+
+.card-header {
+    background: #212842;
+    color: white;
+    padding: 24px 20px;
+    position: relative;
+}
+
+.header-top {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+
+.restaurant-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+}
+
+.handle {
+    font-size: 16px;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+.card-stats {
+    padding: 24px 20px;
+    display: flex;
+    justify-content: space-between;
+    background: #f0e7d5;
+}
+
+.stat {
+    text-align: center;
+    flex: 1;
+    padding: 0 8px;
+}
+
+.stat-number {
+    font-size: 20px;
+    font-weight: bold;
+    color: #14171a;
+    margin-bottom: 6px;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #657786;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.stat:not(:last-child) {
+    border-right: 1px solid #e1e8ed;
+}
+
+.card-container:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0px #000;
+    transition: all 0.2s ease;
+}
+
+@media (max-width: 480px) {
+    .card-container {
+        border: 3px solid #ffffff;
+        box-shadow: 6px 6px 0px #000;
+    }
+
+    .card-container:hover {
+        box-shadow: 8px 8px 0px #000;
+    }
+
+    .stat-number {
+        font-size: 18px;
+    }
+
+    .stat-label {
+        font-size: 12px;
+    }
+}

@@ -1,11 +1,16 @@
 import './home.css'
 import './global.css'
+
 import { MapPin } from 'lucide-react';
+import Navbar from './components/Navbar/Navbar';
+import Card from './components/Card/Card';
 
 export default function Home() {
   return (
     <>
-      <nav>
+      <Navbar />
+
+      <section className="search-section">
         <div className="address">
           <MapPin color="#212842" />
 
@@ -15,7 +20,7 @@ export default function Home() {
         </div>
 
         <div className="search">
-          <svg xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+          <svg xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
             width="24" 
             height="24" 
             viewBox="0 0 24 24" 
@@ -40,12 +45,21 @@ export default function Home() {
             Pesquisar
           </button>
         </div>
-      </nav>
+      </section>
 
-      <main>
-        <div className="card-container">
-          {/* componente de card criar */}
-        </div>
+      <main className="restaurants-list">
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+
+
       </main>
     </>
   );
