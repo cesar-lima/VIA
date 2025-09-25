@@ -1,6 +1,6 @@
 import './style.css'
 
-export function Login(){
+export default function Login(){
     return(
         <main id="login">
             <div>
@@ -13,5 +13,3 @@ export function Login(){
         </main>
     )
 }
-
-export default Login
