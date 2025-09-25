@@ -10,6 +10,9 @@ export default function Navbar() {
         <nav>
             <div className="logo">
                 <Image src={logo} alt="logo via" width={50}/>
+                <div>
+                    Via
+                </div>
             </div>
 
             <Link href="/auth/login" className="user-area">

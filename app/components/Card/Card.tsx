@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import './card.css'
-import { Utensils } from 'lucide-react'
+
+import { Copy, Utensils } from 'lucide-react'
+import { MapPinned } from 'lucide-react'
 
 export default function Card() {
     return (
@@ -8,10 +10,22 @@ export default function Card() {
             <div className="card-container">
                 <div className="card-header">
                     <div className="header-top">
-                        <Utensils />
+                        <Utensils color="#212842" />
                     </div>
                     <div className="restaurant-name">Sukiya - Liberdade</div>
-                    <div className="handle">Av. liberdade, 123, Liberdade</div>
+                    <div className="handle">
+                        <div>
+                            Av. liberdade, 123, Liberdade
+                        </div>
+
+                        <div>
+                            <Copy color="#212842" />
+                        </div>
+
+                        <Link href="">
+                            <MapPinned color="#212842" />
+                        </Link>
+                    </div>
                 </div>
 
                 <div className="card-stats">

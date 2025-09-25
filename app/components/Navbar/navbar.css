@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Marck+Script&display=swap');
+
 nav{
     display: flex;
     justify-content: space-between;
@@ -7,17 +9,31 @@ nav{
     margin: 20px 0px 3rem 0px;   
 }
 
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Marck Script', cursive;
+    font-size: 35pt;
+    font-weight: 700;
+    color: #212842;
+
+    & div {
+        margin-top: 8px;
+    }
+}
+
+
 .user-area{
     display: flex;
     align-items: center;
     gap: 8px;
-
     height: 100%;
     width: 95px;
-    color: #000000;
     cursor: pointer;
-    background-color: #f0e7d5;
-    color: #000000;
+    background-color: #212842;
+    color: #f0e7d5;
     font-size: 12pt;
     border: none;
     transition: 0.3s;
@@ -26,11 +42,10 @@ nav{
     text-decoration: none;
 
     &:hover {
-        background-color: #ffffff;
+        scale: 1.05;
     }
 }
 
 .user-area:visited {
-    color: #000000;
+    color: #f0e7d5;
 }
-
