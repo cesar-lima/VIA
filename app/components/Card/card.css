@@ -14,7 +14,6 @@ a:visited {
     overflow: hidden;
     position: relative;
     margin: 38px 20px 20px 20px;
-    cursor: pointer;
 }
 
 .card-header {
@@ -48,12 +47,23 @@ a:visited {
     display: flex;
 }
 
-.handle div:nth-child(1) {
-    margin-right: 24px;
-}
+.handle-buttons {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-left: auto;
 
-.handle div:nth-child(2) {
-    margin-right: 16px;
+    & div, a{
+        cursor: pointer;
+        background: #212842;
+        color: #f0e7d5;
+        padding: 4px 8px;
+        border-radius: 50%;
+        
+        & svg{
+            margin-top: 3px;
+        }
+    }
 }
 
 .card-stats {
