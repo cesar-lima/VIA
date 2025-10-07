@@ -1,3 +1,8 @@
+.homepage {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 .search-section {
     display: flex;
     justify-content: center;
@@ -104,7 +109,7 @@
     transform-origin: right;
 }
 
-.restaurants-list{
+.restaurants-list {
     margin-top: 40px;
 }
 

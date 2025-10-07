@@ -7,7 +7,7 @@ import Card from './components/Card/Card';
 
 export default function Home() {
   return (
-    <>
+    <section className="homepage">
       <Navbar />
 
       <section className="search-section">
@@ -61,6 +61,6 @@ export default function Home() {
 
 
       </main>
-    </>
+    </section>
   );
 }
