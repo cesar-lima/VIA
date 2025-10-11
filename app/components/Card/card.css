@@ -45,13 +45,13 @@ a:visited {
     font-weight: 400;
     color: #212842;
     display: flex;
+    justify-content: space-between;
 }
 
 .handle-buttons {
     display: flex;
     align-items: center;
     gap: 24px;
-    margin-left: auto;
 
     & div, a{
         cursor: pointer;
@@ -111,6 +111,15 @@ a:visited {
 
     .card-container:hover {
         box-shadow: 8px 8px 0px #000;
+    }
+
+    .handle{
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .handle-buttons{
+        justify-content: center;
     }
 
     .stat-number {
