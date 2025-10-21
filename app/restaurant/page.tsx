@@ -7,13 +7,17 @@ export default function Restaurant() {
     return (
         <section id="restaurant-page">
             <div className="restaurant-title">
-                <div className="restaurant-name">
-                    Sukiya - Liberdade
+                <div>
+                    <div className="restaurant-name">
+                        Sukiya - Liberdade
+                    </div>
+
+                    <div className="restaurant-address">
+                        Av. Liberdade, 164 - São Paulo, SP
+                    </div>
                 </div>
 
-                <div className="restaurant-address">
-                    Av. Liberdade, 164 - São Paulo, SP
-                </div>
+                <CommentButton />
             </div>
 
             <Comment />
@@ -24,8 +28,6 @@ export default function Restaurant() {
             <Comment />
             <Comment />
             <Comment />
-
-            <CommentButton />
-        </section>  
+        </section>
     )
 }

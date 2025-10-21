@@ -6,3 +6,20 @@
     gap: 16px;
     padding: 16px;
 }
+
+.restaurant-title{
+    display: flex;
+    justify-content: space-between;
+}
+
+.restaurant-name {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #212842;
+}
+
+.restaurant-address {
+    font-size: 1rem;
+    color: #555b75;
+    margin-top: 8px;
+}
