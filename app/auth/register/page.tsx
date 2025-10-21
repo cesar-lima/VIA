@@ -1,15 +1,60 @@
+'use client'
+
 import './style.css'
 
 import Image from 'next/image'
 import logo from '../../assets/logo-white.svg'
 import responsiveLogo from '../../assets/logo.svg'
 import Link from 'next/link'
+import { useState } from 'react'
+import { createClient } from '@/app/utils/supabase/client'
+import { useRouter } from 'next/navigation'
 
 export default function Register() {
+    const [nome, setNome] = useState('')
+    const [apelido, setApelido] = useState('')
+    const [cep, setCep] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+    const router = useRouter()
+
+    const handleRegister = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setLoading(true)
+
+        const supabase = createClient()
+
+        const { data, error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+                emailRedirectTo: `${location.origin}/auth/callback`,
+                data: {
+                    nome,
+                    apelido,
+                    cep
+                }
+            },
+        })
+
+        setLoading(false)
+
+        if (error) {
+            alert(`Erro: ${error.message}`)
+            return
+        }
+
+        if (data.user) {
+            alert('✅ Conta criada! Verifique seu email para confirmar.')
+            router.push('/login')
+        }
+    }
+
     return (
         <main id="register">
             <div className="register-left">
-                <form action="">
+                <form onSubmit={handleRegister}>
                     <div className="responsive-logo">
                         <Image src={responsiveLogo} alt="logo" />
                     </div>
@@ -22,7 +67,15 @@ export default function Register() {
                             <circle cx="12" cy="8" r="5" />
                             <path d="M20 21a8 8 0 0 0-16 0" />
                         </svg>
-                        <input type="text" name="nome" className="input" placeholder="Nome" />
+                        <input 
+                            type="text" 
+                            name="nome" 
+                            className="input" 
+                            placeholder="Nome"
+                            value={nome}
+                            onChange={(e) => setNome(e.target.value)}
+                            required
+                        />
                     </div>
 
                     {/* apelido */}
@@ -31,7 +84,15 @@ export default function Register() {
                             <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
                             <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
                         </svg>
-                        <input type="text" name="apelido" className="input" placeholder="Apelido" />
+                        <input 
+                            type="text" 
+                            name="apelido" 
+                            className="input" 
+                            placeholder="Apelido"
+                            value={apelido}
+                            onChange={(e) => setApelido(e.target.value)}
+                            required
+                        />
                     </div>
 
                     {/* cep */}
@@ -42,7 +103,15 @@ export default function Register() {
                             <path d="M18 22v-3" />
                             <circle cx="10" cy="10" r="3" />
                         </svg>
-                        <input type="text" name="cep" className="input" placeholder="CEP" />
+                        <input 
+                            type="text" 
+                            name="cep" 
+                            className="input" 
+                            placeholder="CEP"
+                            value={cep}
+                            onChange={(e) => setCep(e.target.value)}
+                            required
+                        />
                     </div>
 
                     {/* email */}
@@ -51,7 +120,15 @@ export default function Register() {
                             <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
                             <rect x="2" y="4" width="20" height="16" rx="2" />
                         </svg>
-                        <input type="mail" name="email" className="input" placeholder="Email" />
+                        <input 
+                            type="email" 
+                            name="email" 
+                            className="input" 
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
                     </div>
 
                     {/* senha */}
@@ -60,17 +137,26 @@ export default function Register() {
                             <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z" />
                             <circle cx="16.5" cy="7.5" r=".5" fill="currentColor" />
                         </svg>
-                        <input type="password" name="password" className="input" placeholder="Senha" />
+                        <input 
+                            type="password" 
+                            name="password" 
+                            className="input" 
+                            placeholder="Senha"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            minLength={6}
+                        />
                     </div>
 
-                    <button className="register-button" type="submit">
+                    <button className="register-button" type="submit" disabled={loading}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="sparkle lucide lucide-sparkles-icon lucide-sparkles">
                             <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
                             <path d="M20 2v4" />
                             <path d="M22 4h-4" />
                             <circle cx="4" cy="20" r="2" />
                         </svg>
-                        <span className="text">Criar conta</span>
+                        <span className="text">{loading ? 'Criando...' : 'Criar conta'}</span>
                     </button>
                 </form>
             </div>

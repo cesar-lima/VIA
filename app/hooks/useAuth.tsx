@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { createClient } from '@/app/utils/supabase/client'
 
 interface User {
     id: number
@@ -21,9 +22,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null)
     const [loading, setLoading] = useState(true)
-    
-
-    // const supabase = ...
+    const supabase = createClient()
 
 
     const signIn = async (email: string, password: string) => {

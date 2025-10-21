@@ -1,4 +1,26 @@
-a{
+.Toastify__toast {
+  background: #212842 !important;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  color: #f0e7d5 !important;
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.Toastify__toast--success {
+  background: #212842 !important;
+}
+
+.Toastify__progress-bar {
+  background: #f0e7d5 !important;
+  opacity: 1;
+}
+
+.Toastify__close-button {
+  color: #f0e7d5 !important;
+  opacity: 1;
+}
+
+a {
     text-decoration: none;
 }
 
@@ -53,16 +75,22 @@ a:visited {
     align-items: center;
     gap: 24px;
 
-    & div, a{
+    & a, button {
         cursor: pointer;
         background: #212842;
+        border: none;
         color: #f0e7d5;
         padding: 4px 8px;
         border-radius: 50%;
-        
-        & svg{
+        transition: 0.3s;
+
+        & svg {
             margin-top: 3px;
         }
+    }
+
+    & a:hover, & button:hover {
+        transform: scale(1.1);
     }
 }
 
@@ -113,12 +141,12 @@ a:visited {
         box-shadow: 8px 8px 0px #000;
     }
 
-    .handle{
+    .handle {
         flex-direction: column;
         gap: 18px;
     }
 
-    .handle-buttons{
+    .handle-buttons {
         justify-content: center;
     }
 
