@@ -13,10 +13,35 @@ export default function Card() {
     const restaurantAddress = "Av. liberdade, 123, Liberdade";
 
     const handleCopy = () => {
-        navigator.clipboard.writeText(`${restaurantName}, ${restaurantAddress}`);
-        toast.info('Endereço copiado!', {
-            icon: <CheckCircle color="#f0e7d5" size={20} />,
-        });
+        const textToCopy = `${restaurantName}, ${restaurantAddress}`;
+        
+        try {
+            // Cria um textarea temporário e invisível
+            const textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            // Tenta copiar o texto
+            const successful = document.execCommand('copy');
+            
+            // Remove o textarea
+            document.body.removeChild(textArea);
+            
+            if (successful) {
+                toast.info('Endereço copiado!', {
+                    icon: <CheckCircle color="#f0e7d5" size={20} />,
+                });
+            } else {
+                toast.error('Erro ao copiar endereço!');
+            }
+        } catch (err) {
+            toast.error('Erro ao copiar endereço!');
+        }
     };
 
     return (
