@@ -1,0 +1,11 @@
+#admin-page{
+    max-width: 900px;
+    margin: 0px auto 40px;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
+#admin-page h3{
+    margin-bottom: 24px
+}

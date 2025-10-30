@@ -1,7 +1,7 @@
 import './style.css'
 
-import Comment from '../components/Comment/Comment'
-import CommentButton from '../components/CommentButton/CommentButton'
+import Comment from '../../components/Comment/Comment'
+import CommentButton from '../../components/CommentButton/CommentButton'
 
 export default function Restaurant() {
     return (
