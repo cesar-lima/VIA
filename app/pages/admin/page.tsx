@@ -1,4 +1,3 @@
-import '../../global.css'
 import './style.css'
 
 import Navbar from '../../components/Navbar/Navbar'
