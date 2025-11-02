@@ -27,7 +27,7 @@ export default function Navbar() {
 
       {user ? (
         <div className="user-area logged-in">
-          <Link href="/" className="user-info">
+          <Link href="/pages/profile" className="user-info">
             <CircleUserRound />
             <div>{user.email}</div>
           </Link>
