@@ -1,6 +1,47 @@
 .approval-request{
     margin-bottom: 24px;
-    padding: 12px;
     border-radius: 24px;
     background-color: #212842;
+    overflow: hidden;
+}
+
+.approval-request .approval-gradient{
+    width: 100%;
+    height: 32px;
+    background-image: linear-gradient(147deg, #3b4876 0%, #45b7d19e 74%);
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 32px;
+}
+
+
+
+.approval-request .approval-content{
+    display: flex;
+    padding: 24px;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.approval-request .approval-data{
+    color: #f0e7d5;
+}
+
+.approval-request .approval-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.approval-request .approval-actions button{
+    background-color: #f0e7d5;
+    border: none;
+    border-radius: 50%;
+    padding: 5px 9px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.approval-request .approval-actions button:hover{
+    transform: scale(1.1);
 }

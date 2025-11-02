@@ -7,7 +7,7 @@ export default function ApprovalRequest() {
     return (
         <div className="approval-request">
             <div className="approval-gradient">
-                <MapPinPlus size={20} />
+                <MapPinPlus size={20} color="#f0e7d5" />
             </div>
 
             <div className="approval-content">
@@ -22,9 +22,13 @@ export default function ApprovalRequest() {
                 </div>
 
                 <div className="approval-actions">
-                    <Check />
+                    <button>
+                        <Check color="#212842" />
+                    </button>
 
-                    <X />
+                    <button>
+                        <X color="#212842" />
+                    </button>
                 </div>
             </div>
         </div>
