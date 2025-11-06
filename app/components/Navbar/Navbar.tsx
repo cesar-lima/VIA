@@ -21,24 +21,27 @@ export default function Navbar() {
   return (
     <nav>
       <div className="logo">
-        <Image src={logo} alt="logo via" width={50}/>
+        <Image src={logo} alt="logo via" width={50} />
         <div>Via</div>
       </div>
 
       {user ? (
-        <div className="user-area logged-in">
-          <Link href="/pages/profile" className="user-info">
-            <CircleUserRound />
-            <div>{user.email}</div>
-          </Link>
-          <button onClick={handleSignOut} className="logout-btn">
-            <LogOut size={20} />
-            <span>Sair</span>
-          </button>
-        </div>
+        <>
+          <div className="logged-in">
+            <div className="user-area">
+              <Link href="/pages/profile" className="user-info">
+                <CircleUserRound />
+                <div>{user.email}</div>
+              </Link>
+            </div>
+            <button onClick={handleSignOut} className="logout-btn">
+              <LogOut size={20} color="#f0e7d5" />
+            </button>
+          </div>
+        </>
       ) : (
         <Link href="/auth/login" className="user-area">
-          <CircleUserRound />
+          <CircleUserRound color="#f0e7d5"/>
           <div>Entrar</div>
         </Link>
       )}
