@@ -47,7 +47,7 @@ export default function Register() {
 
         if (data.user) {
             alert('✅ Conta criada! Verifique seu email para confirmar.')
-            router.push('/login')
+            router.push('/pages/login')
         }
     }
 
