@@ -2,6 +2,7 @@ import './home.css'
 import './global.css'
 
 import { MapPin } from 'lucide-react';
+import Link from 'next/link';
 import Navbar from './components/Navbar/Navbar';
 import Card from './components/Card/Card';
 
@@ -58,9 +59,11 @@ export default function Home() {
           <Card />
           <Card />
           <Card />
-
-
       </main>
+
+      <footer>
+        Não encontrou o que procurava? <Link href="/pages/indicate">Indique seu restaurante favorito!</Link>
+      </footer>
     </section>
   );
 }

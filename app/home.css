@@ -113,6 +113,27 @@
     margin-top: 40px;
 }
 
+footer {
+    margin-top: 60px;
+    margin-bottom: 40px;
+    text-align: center;
+
+    & a {
+        color: #212842;
+        font-weight: 600;
+        text-decoration: underline;
+        transition: 0.3s;
+    }
+}
+
+footer a:hover {
+    color: #212842b7;
+}
+
+footer a:visited {
+    color: #212842;
+}
+
 @keyframes jello-vertical {
     0% {
         transform: scale3d(1, 1, 1);

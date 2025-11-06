@@ -25,7 +25,7 @@ export default function Card() {
 
                         <div className="handle-buttons">
                             <Link href="../../pages/restaurant">
-                                <MessageCircleMore />
+                                <MessageCircleMore /> Comentários
                             </Link>
 
                             <Link href={`https://maps.google.com/?q=${restaurantName}, ${restaurantAddress}`} target="_blank" rel="noopener noreferrer">
