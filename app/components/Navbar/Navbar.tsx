@@ -31,7 +31,8 @@ export default function Navbar() {
             <div className="user-area">
               <Link href="/pages/profile" className="user-info">
                 <CircleUserRound />
-                <div>{user.email}</div>
+                <div>Sua conta</div>
+                {/* <div>{user.email}</div> */}
               </Link>
             </div>
             <button onClick={handleSignOut} className="logout-btn">

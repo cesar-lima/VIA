@@ -1,10 +1,9 @@
 import './home.css'
-import './global.css'
 
 import { MapPin } from 'lucide-react';
-import Link from 'next/link';
 import Navbar from './components/Navbar/Navbar';
 import Card from './components/Card/Card';
+import Footer from './components/Footer/page';
 
 export default function Home() {
   return (
@@ -22,11 +21,11 @@ export default function Home() {
 
         <div className="search">
           <svg xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-            width="24" 
-            height="24" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="#000000" 
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#000000"
             className="icon lucide lucide-search-icon lucide-search"
           >
             <path d="m21 21-4.34-4.34" />
@@ -49,21 +48,19 @@ export default function Home() {
       </section>
 
       <main className="restaurants-list">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
       </main>
 
-      <footer>
-        Não encontrou o que procurava? <Link href="/pages/indicate">Indique seu restaurante favorito!</Link>
-      </footer>
+      <Footer />
     </section>
   );
 }
