@@ -15,8 +15,6 @@
     padding-right: 32px;
 }
 
-
-
 .approval-request .approval-content{
     display: flex;
     padding: 24px;
@@ -30,18 +28,33 @@
 
 .approval-request .approval-actions {
     display: flex;
-    gap: 6px;
+    gap: 10px;
 }
 
 .approval-request .approval-actions button{
     background-color: #f0e7d5;
     border: none;
     border-radius: 50%;
-    padding: 5px 9px;
+    padding: 7px;
     cursor: pointer;
     transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .approval-request .approval-actions button:hover{
     transform: scale(1.1);
+}
+
+@media screen and (max-width: 690px) {
+    .approval-request .approval-content{
+        flex-direction: column;
+        
+    }
+
+    .approval-request .approval-actions {
+        justify-content: center;
+        margin-top: 16px;
+    }
 }
