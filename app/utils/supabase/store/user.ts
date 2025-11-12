@@ -21,13 +21,30 @@ async function checkLogin() {
   }
 }
 
+export async function createUser(nome_user: string, data_nascimento: string, nickname: string, email: string) {
+  const supabase = createClient();
+
+  const admin = false;
+  const { data, error } = await supabase
+    .from('user')
+    .insert([{ nome_user, data_nascimento, nickname, admin, email }]);
+
+  if (error) {
+    console.error('Erro ao criar usuário:', error);
+    return {
+      success: false,
+      error: error.message
+    }
+  }
+
+  return { success: true, data };
+}
 
 export async function getAllUsers() {
   const supabase = createClient()
   const { data, error } = await supabase
     .from('user')
-    .select('nome')
-    .select('nickname')
+    .select('nome_user, nickname')
 
   if (error) {
     console.error('Erro ao buscar usuários:', error)

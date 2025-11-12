@@ -6,10 +6,14 @@ import Link from 'next/link'
 import { CheckCircle, Copy, MessageCircleMore, Utensils } from 'lucide-react'
 import { MapPinned } from 'lucide-react'
 
-export default function Card() {
-    const restaurantName = "Sukiya - Liberdade";
-    const restaurantAddress = "Av. liberdade, 123, Liberdade";
+interface CardProps {
+    id: number;
+    name: string;
+    address: string;
+    cep: string;
+}
 
+export default function Card({ id, name, address, cep }: CardProps) {
     return (
         <>
             <div className="card-container">
@@ -17,18 +21,18 @@ export default function Card() {
                     <div className="header-top">
                         <Utensils color="#212842" />
                     </div>
-                    <div className="restaurant-name">{restaurantName}</div>
+                    <div className="restaurant-name">{name}</div>
                     <div className="handle">
                         <div>
-                            {restaurantAddress}
+                            {address} - CEP: {cep}
                         </div>
 
                         <div className="handle-buttons">
-                            <Link href="../../pages/restaurant">
+                            <Link href={`/pages/restaurant/${id}`}>
                                 <MessageCircleMore /> Comentários
                             </Link>
 
-                            <Link href={`https://maps.google.com/?q=${restaurantName}, ${restaurantAddress}`} target="_blank" rel="noopener noreferrer">
+                            <Link href={`https://maps.google.com/?q=${name}, ${address}`} target="_blank" rel="noopener noreferrer">
                                 <MapPinned />
                             </Link>
                         </div>

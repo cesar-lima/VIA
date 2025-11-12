@@ -9,8 +9,8 @@ import { useAuth } from '@/app/providers/AuthProvider'
 import { useRouter } from 'next/navigation'
 
 export default function Navbar() {
-  const { user, signOut } = useAuth()
-  const router = useRouter()
+  const { user, signOut } = useAuth();
+  const router = useRouter();
 
   const handleSignOut = async () => {
     await signOut()
@@ -31,8 +31,7 @@ export default function Navbar() {
             <div className="user-area">
               <Link href="/pages/profile" className="user-info">
                 <CircleUserRound />
-                <div>Sua conta</div>
-                {/* <div>{user.email}</div> */}
+                <div>{user.user_metadata.nome}</div>
               </Link>
             </div>
             <button onClick={handleSignOut} className="logout-btn">

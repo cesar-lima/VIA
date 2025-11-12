@@ -20,6 +20,23 @@ export default function Restaurant() {
                 <CommentButton />
             </div>
 
+            <div className="acessibility-tags">
+                <p>
+                    Recursos de acessibilidade disponíveis:
+                </p>
+
+                <div className="tags-container">
+                    <div className="tag">Rampa para cadeirantes</div>
+                    <div className="tag">Banheiro acessível</div>
+                    <div className="tag">Cardápio em braile</div>
+                    <div className="tag">Atendimento para surdos</div>
+                    <div className="tag">Estacionamento para deficientes</div>
+                    <div className="tag">Mesas adaptadas</div>
+                    <div className="tag">Elevador</div>
+                    <div className="tag">Cadeira de rodas disponível</div>
+                </div>
+            </div>
+
             <Comment />
             <Comment />
             <Comment />

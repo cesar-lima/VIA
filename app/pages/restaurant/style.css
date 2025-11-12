@@ -7,7 +7,7 @@
     padding: 16px;
 }
 
-.restaurant-title{
+.restaurant-title {
     display: flex;
     justify-content: space-between;
 }
@@ -22,4 +22,32 @@
     font-size: 1rem;
     color: #555b75;
     margin-top: 8px;
+}
+
+.acessibility-tags {
+    margin: 16px 0 16px 0;
+}
+
+.acessibility-tags p {
+    font-size: 0.85rem;
+    color: #212842;
+    font-weight: 600;
+}
+
+.acessibility-tags .tags-container {
+    display: flex;
+    gap: 8px;
+    margin: 5px 0;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+.acessibility-tags .tag {
+    background-color: #212842;
+    color: #f0e7d5;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.775rem;
+    font-weight: 500;
 }

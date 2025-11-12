@@ -1,16 +1,16 @@
-import { getAllUsers } from '@/app/utils/supabase/store/user'
+import { getRestaurants } from "@/app/utils/supabase/store/restaurant";
 
 export async function GET() {
     try {
-        const users = await getAllUsers();
+        const restaurantResponse = await getRestaurants();
 
         return Response.json({
             success: true,
-            data: users
+            data: restaurantResponse
         });
 
     } catch (error) {
-        console.log('Erro ao buscar usuário:', error);
+        console.log('Erro ao buscar restaurantes:', error);
         return Response.json({
             success: false,
             error: String(error)

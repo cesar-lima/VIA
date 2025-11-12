@@ -5,19 +5,32 @@ import './style.css'
 import Image from 'next/image'
 import logo from '../../assets/logo-white.svg'
 import responsiveLogo from '../../assets/logo.svg'
-import Link from 'next/link'
 import { useState } from 'react'
 import { createClient } from '@/app/utils/supabase/client'
 import { useRouter } from 'next/navigation'
+import { createUser } from '@/app/utils/supabase/store/user'
 
 export default function Register() {
     const [nome, setNome] = useState('')
+    const [dataNascimento, setDataNascimento] = useState('')
     const [apelido, setApelido] = useState('')
-    const [cep, setCep] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
     const router = useRouter()
+
+    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let value = e.target.value.replace(/\D/g, '') // Remove tudo que não é número
+        
+        if (value.length >= 2) {
+            value = value.slice(0, 2) + '/' + value.slice(2)
+        }
+        if (value.length >= 5) {
+            value = value.slice(0, 5) + '/' + value.slice(5, 9)
+        }
+        
+        setDataNascimento(value)
+    }
 
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -32,11 +45,10 @@ export default function Register() {
                 emailRedirectTo: `${location.origin}/auth/callback`,
                 data: {
                     nome,
-                    apelido,
-                    cep
+                    apelido
                 }
             },
-        })
+        });
 
         setLoading(false)
 
@@ -46,8 +58,10 @@ export default function Register() {
         }
 
         if (data.user) {
+            await createUser(nome, dataNascimento, apelido, email);
+
             alert('✅ Conta criada! Verifique seu email para confirmar.')
-            router.push('/pages/login')
+            router.push('/auth/login')
         }
     }
 
@@ -95,21 +109,21 @@ export default function Register() {
                         />
                     </div>
 
-                    {/* cep */}
+                    {/* data de nascimento */}
                     <div className="register-input">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon lucide lucide-map-pin-house-icon lucide-map-pin-house">
-                            <path d="M15 22a1 1 0 0 1-1-1v-4a1 1 0 0 1 .445-.832l3-2a1 1 0 0 1 1.11 0l3 2A1 1 0 0 1 22 17v4a1 1 0 0 1-1 1z" />
-                            <path d="M18 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 .601.2" />
-                            <path d="M18 22v-3" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon lucide lucide-calendar-icon lucide-calendar">
+                            <path d="M3 4h18M3 10h18M3 16h18M3 22h18" />
+                            <path d="M4 4v18a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4" />
                             <circle cx="10" cy="10" r="3" />
                         </svg>
                         <input 
                             type="text" 
-                            name="cep" 
+                            name="dataNascimento" 
                             className="input" 
-                            placeholder="CEP"
-                            value={cep}
-                            onChange={(e) => setCep(e.target.value)}
+                            placeholder="DD/MM/AAAA"
+                            value={dataNascimento}
+                            onChange={handleDateChange}
+                            maxLength={10}
                             required
                         />
                     </div>
