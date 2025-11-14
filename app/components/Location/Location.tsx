@@ -5,7 +5,11 @@ import { useEffect, useState } from 'react'
 
 import { MapPin } from 'lucide-react'
 
-export default function Location() {
+interface LocationProps {
+    onCepDetected?: (cep: string) => void;
+}
+
+export default function Location({ onCepDetected }: LocationProps) {
     const [address, setAddress] = useState('Permita o acesso à sua localização.');
     const [loadingAddress, setLoadingAddress] = useState(false);
 
@@ -28,6 +32,7 @@ export default function Location() {
                     const street = addr.road || addr.pedestrian || addr.cycleway || addr.footway || addr.house_number || null;
                     const neighbourhood = addr.neighbourhood || addr.suburb || addr.city_district || addr.village || addr.hamlet || null;
                     const state = addr.state || addr.state_code || addr.county || null;
+                    const postcode = addr.postcode || null;
 
                     const parts: string[] = [];
                     if (street) parts.push(street);
@@ -38,6 +43,11 @@ export default function Location() {
                         : (data?.display_name || '');
 
                     if (formatted) setAddress(formatted);
+                    
+                    // Notifica o CEP detectado
+                    if (postcode && onCepDetected) {
+                        onCepDetected(postcode.replace(/\D/g, ''));
+                    }
                 } catch (err) {
                     // erro silencioso — manter endereço padrão
                 } finally {
@@ -46,11 +56,12 @@ export default function Location() {
             },
             (err) => {
                 setLoadingAddress(false);
+                console.error('Erro ao obter localização:', err);
                 // usuário negou ou erro — manter endereço padrão
             },
             { enableHighAccuracy: true, timeout: 10000 }
         );
-    }, []);
+    }, [onCepDetected]);
 
     return (
         <div className="address">

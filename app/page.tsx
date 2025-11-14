@@ -8,10 +8,12 @@ import Card from './components/Card/Card';
 import Footer from './components/Footer/page';
 import Location from './components/Location/Location';
 import { getRestaurants } from './utils/supabase/store/restaurant';
+import { sortRestaurantsByProximity } from './utils/utils';
 
 export default function Home() {
   const [restaurants, setRestaurants] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [userCep, setUserCep] = useState<string>('');
 
   useEffect(() => {
     async function loadRestaurants() {
@@ -28,12 +30,19 @@ export default function Home() {
     restaurant.name_restaurant.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Ordena por proximidade se houver CEP do usuário
+  const sortedRestaurants = sortRestaurantsByProximity(filteredRestaurants, userCep);
+
+  const handleCepDetected = (cep: string) => {
+    setUserCep(cep);
+  };
+
   return (
     <section className="homepage">
       <Navbar />
 
       <section className="search-section">
-        <Location />
+        <Location onCepDetected={handleCepDetected} />
 
         <div className="search">
           <svg xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
@@ -59,7 +68,7 @@ export default function Home() {
       </section>
 
       <main className="restaurants-list">
-        {filteredRestaurants.map((restaurant: any) => (
+        {sortedRestaurants.map((restaurant: any) => (
           <Card 
             key={restaurant.id_restaurant}
             id={restaurant.id_restaurant}
