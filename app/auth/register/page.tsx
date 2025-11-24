@@ -42,7 +42,7 @@ export default function Register() {
             email,
             password,
             options: {
-                emailRedirectTo: `${location.origin}/auth/callback`,
+                emailRedirectTo: `https://viarestaurantes.vercel.app/auth/callback`,
                 data: {
                     nome,
                     apelido
