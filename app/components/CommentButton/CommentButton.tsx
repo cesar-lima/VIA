@@ -1,9 +1,10 @@
 'use client'
 import './CommentButton.css'
 
-import { MessageCircleMore, X, Star } from "lucide-react";
+import { MessageCircleMore, X, Star, Search } from "lucide-react";
 import { useAuth } from '@/app/providers/AuthProvider'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getItensAccessibility } from '@/app/utils/supabase/store/item_accessibility';
 import Link from 'next/link'
 
 export default function CommentButton() {
@@ -12,6 +13,22 @@ export default function CommentButton() {
     const [isOpen, setIsOpen] = useState(false);
     const [rating, setRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
+    const [accessibilityItems, setAccessibilityItems] = useState<any[]>([]);
+    const [searchTerm, setSearchTerm] = useState('');
+
+    useEffect(() => {
+        async function loadAccessibilityItems() {
+            const result = await getItensAccessibility();
+            if (result.success && result.data) {
+                setAccessibilityItems(result.data);
+            }
+        }
+        loadAccessibilityItems();
+    }, []);
+
+    const filteredItems = accessibilityItems.filter((item) =>
+        item.item_review.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -83,47 +100,31 @@ export default function CommentButton() {
 
                                     <div className="form-group">
                                         <label>Ferramentas de Acessibilidade</label>
+                                        <div className="search-container">
+                                            <Search size={20} className="search-icon" />
+                                            <input
+                                                type="text"
+                                                placeholder="Buscar ferramenta..."
+                                                value={searchTerm}
+                                                onChange={(e) => setSearchTerm(e.target.value)}
+                                                className="search-input"
+                                            />
+                                        </div>
                                         <div className="checkbox-group">
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="rampa" />
-                                                <span>Rampa de Acesso</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="banheiro-adaptado" />
-                                                <span>Banheiro Adaptado</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="elevador" />
-                                                <span>Elevador</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="estacionamento" />
-                                                <span>Estacionamento Acessível</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="cardapio-braille" />
-                                                <span>Cardápio em Braille</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="sinalizacao-tatil" />
-                                                <span>Sinalização Tátil</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="audio-descricao" />
-                                                <span>Áudio Descrição</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="cadeira-rodas" />
-                                                <span>Espaço para Cadeira de Rodas</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="interprete-libras" />
-                                                <span>Intérprete de Libras</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="piso-tatil" />
-                                                <span>Piso Tátil</span>
-                                            </label>
+                                            {filteredItems.length > 0 ? (
+                                                filteredItems.map((item) => (
+                                                    <label key={item.id_cr} className="checkbox-item">
+                                                        <input 
+                                                            type="checkbox" 
+                                                            name="acessibility" 
+                                                            value={item.id_cr} 
+                                                        />
+                                                        <span>{item.item_review}</span>
+                                                    </label>
+                                                ))
+                                            ) : (
+                                                <p className="no-results">Nenhuma ferramenta encontrada</p>
+                                            )}
                                         </div>
                                     </div>
 

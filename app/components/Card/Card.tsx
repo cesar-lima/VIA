@@ -11,9 +11,11 @@ interface CardProps {
     name: string;
     address: string;
     cep: string;
+    nota?: number;
+    n_avaliacoes?: number;
 }
 
-export default function Card({ id, name, address, cep }: CardProps) {
+export default function Card({ id, name, address, cep, nota, n_avaliacoes }: CardProps) {
     return (
         <>
             <div className="card-container">
@@ -41,11 +43,11 @@ export default function Card({ id, name, address, cep }: CardProps) {
 
                 <div className="card-stats">
                     <div className="stat">
-                        <div className="stat-number">755</div>
+                        <div className="stat-number">{n_avaliacoes ?? '0'}</div>
                         <div className="stat-label">Avaliações</div>
                     </div>
                     <div className="stat">
-                        <div className="stat-number">3/5.0</div>
+                        <div className="stat-number">{nota ? `${nota.toFixed(1)} de 5.0` : 'Sem nota'}</div>
                         <div className="stat-label">Nota</div>
                     </div>
                 </div>

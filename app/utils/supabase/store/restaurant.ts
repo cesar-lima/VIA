@@ -17,3 +17,27 @@ export async function getRestaurants() {
 
     return { success: true, data };
 }
+
+export async function getRestaurantById(id: string) {
+    const supabase = await createClient();
+
+    const { data, error } = await supabase
+        .from('restaurant')
+        .select('*')
+        .eq('id_restaurant', id)
+        .single();
+
+    if (error) {
+        return {
+            success: false,
+            error: error.message,
+            data: null
+        };
+    }
+
+    return {
+        success: true,
+        error: null,
+        data
+    };
+}

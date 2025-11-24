@@ -1,0 +1,125 @@
+#restaurant-page {
+    max-width: 900px;
+    margin: 40px auto 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+}
+
+.restaurant-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.restaurant-name {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #212842;
+}
+
+.restaurant-address {
+    font-size: 1rem;
+    color: #555b75;
+    margin-top: 8px;
+}
+
+.acessibility-tags {
+    margin: 16px 0 16px 0;
+}
+
+.acessibility-tags p {
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #555;
+}
+
+.acessibility-tags .tags-container {
+    display: flex;
+    gap: 8px;
+    margin: 5px 0;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+.acessibility-tags .tag {
+    background-color: #212842;
+    color: #f0e7d5;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.775rem;
+    font-weight: 500;
+}
+
+.tags-container .tag {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tags-container .tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tags-container .tag-selected {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: 500;
+}
+
+.selected-filters {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: #4CAF50;
+    font-weight: 500;
+}
+
+.comments-header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #212842;
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: #f0e7d5;
+    background-color: transparent;
+}
+
+.search-bar input::placeholder {
+    color: #999;
+}
+
+.clear-filters-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.clear-filters-btn:hover {
+    background-color: #d32f2f;
+}

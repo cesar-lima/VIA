@@ -2,7 +2,23 @@ import './style.css'
 
 import { CircleUserRound } from 'lucide-react'
 
-export default function Comment() {
+interface CommentProps {
+    authorName: string
+    date: string
+    content: string
+    rating?: number
+    accessibilityItems?: Array<{
+        checklist_review: {
+            id_cr: string
+            item_review: string
+            item_classify: string
+        }
+    }>
+}
+
+export default function Comment({ authorName, date, content, rating, accessibilityItems }: CommentProps) {
+    const formattedDate = new Date(date).toLocaleDateString('pt-BR')
+
     return (
         <div className="comment-container">
             <div className="comment-infos">
@@ -10,20 +26,35 @@ export default function Comment() {
                     <CircleUserRound />
 
                     <div className="author-name">
-                        Marlon Rodrigues
+                        {authorName}
                     </div>
                 </div>
 
                 <div className="comment-date">
-                    15/10/2025
+                    {formattedDate}
                 </div>
             </div>
 
             <div className="comment-content">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Error quae dicta repudiandae voluptate
-                delectus amet necessitatibus animi molestias nobis dignissimos, quas repellat est officiis veniam
-                beatae rerum fugit eveniet itaque!
+                {content}
+                {rating && (
+                    <div className="comment-rating">
+                        ⭐ {rating}/5
+                    </div>
+                )}
             </div>
+
+            {accessibilityItems && accessibilityItems.length > 0 && (
+                <div className="comment-accessibility-tags">
+                    <div className="tags-container">
+                        {accessibilityItems.map((item) => (
+                            <div key={item.checklist_review.id_cr} className="tag">
+                                {item.checklist_review.item_review}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

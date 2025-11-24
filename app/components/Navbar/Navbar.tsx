@@ -20,10 +20,12 @@ export default function Navbar() {
 
   return (
     <nav>
-      <div className="logo">
-        <Image src={logo} alt="logo via" width={50} />
-        <div>Via</div>
-      </div>
+      <Link href="/">
+        <div className="logo">
+          <Image src={logo} alt="logo via" width={50} />
+          <div>Via</div>
+        </div>
+      </Link>
 
       {user ? (
         <>
@@ -41,7 +43,7 @@ export default function Navbar() {
         </>
       ) : (
         <Link href="/auth/login" className="user-area">
-          <CircleUserRound color="#f0e7d5"/>
+          <CircleUserRound color="#f0e7d5" />
           <div>Entrar</div>
         </Link>
       )}

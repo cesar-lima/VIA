@@ -79,3 +79,19 @@ export async function getUserByEmail() {
 
   return data
 }
+
+export async function getUserById(userId: string) {
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .from('user')
+    .select('nome_user, nickname')
+    .eq('id_user', userId)
+    .single()
+
+  if (error) {
+    console.error('Erro ao buscar usuário:', error)
+    return null
+  }
+
+  return data
+}

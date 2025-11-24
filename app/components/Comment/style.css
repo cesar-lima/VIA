@@ -17,3 +17,29 @@
     align-items: center;
     gap: 8px;
 }
+
+.comment-accessibility-tags {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.comment-accessibility-tags .tags-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.comment-accessibility-tags .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.comment-accessibility-tags .tag {
+    background-color: #f0f0f0;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    color: #333;
+}

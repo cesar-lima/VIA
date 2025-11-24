@@ -7,14 +7,18 @@ import { MapPin } from 'lucide-react'
 
 interface LocationProps {
     onCepDetected?: (cep: string) => void;
+    onLocationDenied?: () => void;
 }
 
-export default function Location({ onCepDetected }: LocationProps) {
+export default function Location({ onCepDetected, onLocationDenied }: LocationProps) {
     const [address, setAddress] = useState('Permita o acesso à sua localização.');
     const [loadingAddress, setLoadingAddress] = useState(false);
 
     useEffect(() => {
-        if (!navigator.geolocation) return;
+        if (!navigator.geolocation) {
+            onLocationDenied?.();
+            return;
+        }
 
         setLoadingAddress(true);
         navigator.geolocation.getCurrentPosition(
@@ -47,9 +51,11 @@ export default function Location({ onCepDetected }: LocationProps) {
                     // Notifica o CEP detectado
                     if (postcode && onCepDetected) {
                         onCepDetected(postcode.replace(/\D/g, ''));
+                    } else {
+                        onLocationDenied?.();
                     }
                 } catch (err) {
-                    // erro silencioso — manter endereço padrão
+                    onLocationDenied?.();
                 } finally {
                     setLoadingAddress(false);
                 }
@@ -57,11 +63,11 @@ export default function Location({ onCepDetected }: LocationProps) {
             (err) => {
                 setLoadingAddress(false);
                 console.error('Erro ao obter localização:', err);
-                // usuário negou ou erro — manter endereço padrão
+                onLocationDenied?.();
             },
             { enableHighAccuracy: true, timeout: 10000 }
         );
-    }, [onCepDetected]);
+    }, [onCepDetected, onLocationDenied]);
 
     return (
         <div className="address">
