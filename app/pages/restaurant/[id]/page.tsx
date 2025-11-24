@@ -131,7 +131,10 @@ export default function Restaurant() {
 
             <div className="acessibility-tags">
                 {accessibilityItems.length > 0 &&(
-                    <h3>Recursos de Acessibilidade</h3>
+                    <>
+                        <h3>Recursos de Acessibilidade</h3>
+                        <p>Clique para filtrar:</p>
+                    </>
                 )}
 
                 <div className="tags-container">
