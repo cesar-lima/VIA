@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import Navbar from '../../components/Navbar/Navbar'
-import { createClient } from '@/app/utils/supabase/client'
-import { getUserByEmail } from '@/app/utils/supabase/store/user'
+import { getUserByEmail, editUser } from '@/app/utils/supabase/store/user'
 import './style.css'
 
 export default function Profile() {
+    const [userId, setUserId] = useState('')
     const [nome, setNome] = useState('')
     const [apelido, setApelido] = useState('')
     const [dataNascimento, setDataNascimento] = useState('')
@@ -30,10 +30,8 @@ export default function Profile() {
     // Converte data de YYYY-MM-DD para DD/MM/YYYY
     const formatDateToBR = (date: string) => {
         if (!date) return ''
-        // Se já estiver no formato DD/MM/YYYY, retorna como está
         if (date.includes('/')) return date
-        // Converte de YYYY-MM-DD para DD/MM/YYYY
-        const [year, day, month] = date.split('-')
+        const [year, month, day] = date.split('-')
         return `${day}/${month}/${year}`
     }
 
@@ -43,6 +41,7 @@ export default function Profile() {
             const userData = await getUserByEmail()
 
             if (userData) {
+                setUserId(userData.id_user || '')
                 setEmail(userData.email || '')
                 setNome(userData.nome_user || '')
                 setApelido(userData.nickname || '')
@@ -58,37 +57,19 @@ export default function Profile() {
         setLoading(true)
 
         try {
-            const supabase = await createClient();
-
             // Converte a data de DD/MM/YYYY para YYYY-MM-DD para salvar no banco
             const dateParts = dataNascimento.split('/');
             const formattedDate = dateParts.length === 3
                 ? `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
-                : null;
+                : '';
 
-            // Atualiza os dados na tabela user
-            const { data: userData, error: userError } = await supabase
-                .from('user')
-                .update({
-                    nome_user: nome,
-                    nickname: apelido,
-                    data_nascimento: formattedDate
-                })
-                .eq('email', email)
-                .select();
+            const result = await editUser(userId, nome, formattedDate, apelido);
 
-            console.log('Resultado do update:', userData);
-            console.log('Erro do update:', userError);
-            console.log('=== DEBUG FIM ===');
-
-            if (userError) {
-                console.error('Erro ao atualizar:', userError);
+            if (!result.success) {
                 alert('Erro ao salvar dados!')
-                setLoading(false)
                 return;
             }
 
-            console.log('Dados salvos:', userData);
             alert('Dados salvos com sucesso!')
         } catch (error) {
             console.error('Erro:', error);
@@ -131,7 +112,7 @@ export default function Profile() {
                         className="input"
                         placeholder="Email"
                         value={email}
-                        readOnly
+                        disabled
                         style={{ opacity: 0.6, cursor: 'not-allowed' }}
                     />
                 </div>

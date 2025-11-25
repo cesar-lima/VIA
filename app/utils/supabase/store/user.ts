@@ -95,3 +95,39 @@ export async function getUserById(userId: string) {
 
   return data
 }
+
+export async function editUser(userId: string, nome_user: string, data_nascimento: string, nickname: string) {
+  const supabase = createClient()
+  
+  // Atualiza a tabela user
+  const { data: userData, error: userError } = await supabase
+    .from('user')
+    .update({ nome_user, data_nascimento, nickname })
+    .eq('id_user', userId)
+
+  if (userError) {
+    console.error('Erro ao editar usuário:', userError)
+    return {
+      success: false,
+      error: userError.message
+    }
+  }
+
+  // Atualiza os metadados no Auth
+  const { data: authData, error: authError } = await supabase.auth.updateUser({
+    data: {
+      nome: nome_user.split(' ')[0], // Primeiro nome
+      apelido: nickname
+    }
+  })
+
+  if (authError) {
+    console.error('Erro ao atualizar metadados do Auth:', authError)
+    return {
+      success: false,
+      error: authError.message
+    }
+  }
+  
+  return { success: true, data: userData }
+}
