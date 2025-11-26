@@ -155,12 +155,12 @@ export default function CommentButton() {
                                     </div>
 
                                     <div className="form-group">
-                                        <label>Ferramentas de Acessibilidade</label>
+                                        <label>Recursos de Acessibilidade</label>
                                         <div className="search-container">
                                             <Search size={20} className="search-icon" />
                                             <input
                                                 type="text"
-                                                placeholder="Buscar ferramenta..."
+                                                placeholder="Buscar Recurso..."
                                                 value={searchTerm}
                                                 onChange={(e) => setSearchTerm(e.target.value)}
                                                 className="search-input"
@@ -180,7 +180,7 @@ export default function CommentButton() {
                                                     </label>
                                                 ))
                                             ) : (
-                                                <p className="no-results">Nenhuma ferramenta encontrada</p>
+                                                <p className="no-results">Nenhuma Recurso encontrada</p>
                                             )}
                                         </div>
                                     </div>
