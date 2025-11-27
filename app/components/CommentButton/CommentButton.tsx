@@ -180,7 +180,7 @@ export default function CommentButton() {
                                                     </label>
                                                 ))
                                             ) : (
-                                                <p className="no-results">Nenhuma Recurso encontrada</p>
+                                                <p className="no-results">Nenhum Recurso encontrado</p>
                                             )}
                                         </div>
                                     </div>

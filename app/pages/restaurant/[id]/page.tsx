@@ -13,6 +13,8 @@ import { getUserByEmail } from '../../../utils/supabase/store/user'
 import Loading from '@/app/loading'
 import Link from 'next/link'
 
+export const thisIsAnUnusedExport = 'this export only exists to disable fast refresh for this file';
+
 export default function Restaurant() {
     const params = useParams()
     const router = useRouter()

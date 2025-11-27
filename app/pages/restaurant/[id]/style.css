@@ -23,8 +23,9 @@
 .restaurant-map-address {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
-    padding: 10px 11px;
+    padding: 10px 12px;
     background: #212842;
     border: 1px solid #f0e7d5;
     color: #f0e7d5;
@@ -34,13 +35,17 @@
     text-decoration: none;
 }
 
+.restaurant-map-address a{
+    color: #f0e7d5;
+    text-decoration: none;
+}
+
 .restaurant-map-address:hover {
     transform: scale(1.03);
 }
 
 .restaurant-map-address a:visited {
     color: #f0e7d5;
-    text-decoration: none;
 }
 
 .restaurant-title {
