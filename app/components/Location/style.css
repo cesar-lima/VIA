@@ -1,0 +1,15 @@
+.address {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    padding: 4px 8px;
+
+    gap: 8px;
+    font-size: 10pt;
+    font-weight: 500;
+
+    background-color: #212842;
+    color: #f0e7d5;
+    border-radius: 20px;
+}

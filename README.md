@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<!-- # Via - Viabilizando Inclusão e Acessibilidade -->
 
-## Getting Started
+<img width="1161" height="655" alt="image" src="https://github.com/user-attachments/assets/f3f07abe-993c-43ac-8588-a456ca276e94" />
 
-First, run the development server:
+Via é uma plataforma web dedicada a promover inclusão e acessibilidade,
+permitindo que usuários encontrem, avaliem e classifiquem restaurantes
+com base em suas características de acessibilidade. O projeto tem como
+objetivo criar um guia colaborativo para pessoas com necessidades
+específicas de acessibilidade.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ⚙️ Funcionalidades 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   **Descoberta de Restaurantes**: Pesquise restaurantes por nome ou
+    endereço.
+-   **Ordenação por Localização**: Utiliza a geolocalização do
+    dispositivo para ordenar restaurantes por proximidade.
+-   **Avaliações de Acessibilidade**: Usuários podem enviar avaliações
+    detalhadas, incluindo nota em estrelas, comentário escrito e um
+    checklist de recursos de acessibilidade (como rampas e banheiros
+    acessíveis).
+-   **Conteúdo Colaborativo**: Usuários podem indicar novos restaurantes
+    para serem adicionados à plataforma.
+-   **Painel Administrativo**: Um painel dedicado para administradores
+    revisarem e aprovarem novos restaurantes enviados pelos usuários.
+-   **Autenticação de Usuário**: Sistema seguro de registro e login,
+    utilizando Supabase Auth.
+-   **Perfis de Usuário**: Usuários registrados podem gerenciar suas
+    informações pessoais.
+-   **Sistema de Votação**: Vote positiva ou negativamente em avaliações
+    para destacar o feedback mais útil.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-   **Framework**: [Next.js](https://nextjs.org/) (App Router)
+-   **Linguagem**: [TypeScript](https://www.typescriptlang.org/)
+-   **Backend e Banco de Dados**: [Supabase](https://supabase.io/)
+-   **Estilização**: [Tailwind CSS](https://tailwindcss.com/) & CSS Modules
+-   **Ícones**: [Lucide React](https://lucide.dev/)
+-   **Deploy**: Vercel
 
-## Learn More
+## 🧱 Estrutura do Projeto
 
-To learn more about Next.js, take a look at the following resources:
+O projeto segue a estrutura padrão do Next.js com App Router:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-   `app/`: Contém todas as rotas, páginas e componentes da aplicação.
+    -   `api/`: Handlers de rotas da API para lógica do lado do
+        servidor.
+    -   `auth/`: Lida com páginas de autenticação (login, cadastro) e
+        callbacks.
+    -   `components/`: Componentes React reutilizáveis, como `Card`,
+        `Navbar` e `Comment`.
+    -   `pages/`: Páginas principais, como `profile` (perfil), painel
+        `admin` e página de indicação de restaurantes.
+    -   `utils/supabase/`: Configurações do cliente/servidor do Supabase
+        e funções de acesso ao banco de dados.
+-   `middleware.ts`: Gerencia autenticação e autorização para rotas
+    protegidas.
+-   `next.config.ts`: Arquivo de configuração do Next.js.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<!--
+## Começando
 
-## Deploy on Vercel
+Para rodar este projeto localmente, siga os passos abaixo.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Pré-requisitos
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+-   Node.js (v18 ou superior)
+-   npm, yarn ou pnpm
+-   Uma conta no Supabase
+
+### Instalação
+
+1.  **Clone o repositório:**
+    ```bash
+      git clone https://github.com/cesar-lima/via.git
+      cd via
+    ```
+
+3.  **Instale as dependências:**
+    ```bash
+    npm install
+    # ou
+    yarn install
+    # ou
+    pnpm install
+    ```
+
+5.  **Configure as variáveis de ambiente:** Crie um arquivo chamado
+    `.env.local` na raiz do projeto e adicione a URL do seu projeto
+    Supabase e a Anon Key:
+    ```bash
+    NEXT_PUBLIC_SUPABASE_URL=your-supabase-project-url
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+    ```
+
+7.  **Execute o servidor de desenvolvimento:**
+    ```bash
+      npm run dev
+    ```
+
+Abra http://localhost:3000 no navegador para visualizar o resultado.

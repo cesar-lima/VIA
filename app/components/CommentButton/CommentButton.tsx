@@ -1,24 +1,97 @@
 'use client'
 import './CommentButton.css'
 
-import { MessageCircleMore, X, Star } from "lucide-react";
+import { MessageCircleMore, X, Star, Search } from "lucide-react";
 import { useAuth } from '@/app/providers/AuthProvider'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getItensAccessibility } from '@/app/utils/supabase/store/item_accessibility';
+import { createReview } from '@/app/utils/supabase/store/review';
 import Link from 'next/link'
+import { useParams } from 'next/navigation';
 
 export default function CommentButton() {
-    const { user, signOut } = useAuth()
+    const { user } = useAuth()
+    const params = useParams();
+    const restaurantId = params?.id as string;
 
     const [isOpen, setIsOpen] = useState(false);
     const [rating, setRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
+    const [accessibilityItems, setAccessibilityItems] = useState<any[]>([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedItems, setSelectedItems] = useState<number[]>([]);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    useEffect(() => {
+        async function loadAccessibilityItems() {
+            const result = await getItensAccessibility();
+            if (result.success && result.data) {
+                setAccessibilityItems(result.data);
+            }
+        }
+        loadAccessibilityItems();
+    }, []);
+
+    const filteredItems = accessibilityItems.filter((item) =>
+        item.item_review.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const handleCheckboxChange = (itemId: number, isChecked: boolean) => {
+        if (isChecked) {
+            setSelectedItems([...selectedItems, itemId]);
+        } else {
+            setSelectedItems(selectedItems.filter(id => id !== itemId));
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Lógica para enviar o formulário
-        console.log('Formulário enviado!');
-        console.log('Nota:', rating);
-        setIsOpen(false);
+        
+        if (!user || !restaurantId) {
+            console.error('Usuário não autenticado ou restaurante não identificado');
+            return;
+        }
+
+        if (rating === 0) {
+            alert('Por favor, selecione uma nota');
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        // Buscar o id_user (inteiro) usando o email do usuário autenticado
+        const { getUserByEmail } = await import('@/app/utils/supabase/store/user');
+        const userData = await getUserByEmail();
+        
+        if (!userData || !userData.id_user) {
+            alert('Erro ao identificar usuário');
+            setIsSubmitting(false);
+            return;
+        }
+
+        const formData = new FormData(e.target as HTMLFormElement);
+        const comment = formData.get('comment') as string;
+
+        const result = await createReview({
+            fk_id_user: String(userData.id_user),
+            fk_id_restaurant: restaurantId,
+            rating_review: rating,
+            comment: comment,
+            checklist_items: selectedItems.length > 0 ? selectedItems : undefined
+        });
+
+        setIsSubmitting(false);
+
+        if (result.success) {
+            alert('Avaliação enviada com sucesso!');
+            setIsOpen(false);
+            setRating(0);
+            setSelectedItems([]);
+            setSearchTerm('');
+            window.location.reload();
+        } else {
+            alert('Erro ao enviar avaliação: ' + result.error);
+        }
     };
 
     return (
@@ -82,53 +155,38 @@ export default function CommentButton() {
                                     </div>
 
                                     <div className="form-group">
-                                        <label>Ferramentas de Acessibilidade</label>
+                                        <label>Recursos de Acessibilidade</label>
+                                        <div className="search-container">
+                                            <Search size={20} className="search-icon" />
+                                            <input
+                                                type="text"
+                                                placeholder="Buscar Recurso..."
+                                                value={searchTerm}
+                                                onChange={(e) => setSearchTerm(e.target.value)}
+                                                className="search-input"
+                                            />
+                                        </div>
                                         <div className="checkbox-group">
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="rampa" />
-                                                <span>Rampa de Acesso</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="banheiro-adaptado" />
-                                                <span>Banheiro Adaptado</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="elevador" />
-                                                <span>Elevador</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="estacionamento" />
-                                                <span>Estacionamento Acessível</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="cardapio-braille" />
-                                                <span>Cardápio em Braille</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="sinalizacao-tatil" />
-                                                <span>Sinalização Tátil</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="audio-descricao" />
-                                                <span>Áudio Descrição</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="cadeira-rodas" />
-                                                <span>Espaço para Cadeira de Rodas</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="interprete-libras" />
-                                                <span>Intérprete de Libras</span>
-                                            </label>
-                                            <label className="checkbox-item">
-                                                <input type="checkbox" name="acessibility" value="piso-tatil" />
-                                                <span>Piso Tátil</span>
-                                            </label>
+                                            {filteredItems.length > 0 ? (
+                                                filteredItems.map((item) => (
+                                                    <label key={item.id_cr} className="checkbox-item">
+                                                        <input 
+                                                            type="checkbox" 
+                                                            value={item.id_cr}
+                                                            checked={selectedItems.includes(item.id_cr)}
+                                                            onChange={(e) => handleCheckboxChange(item.id_cr, e.target.checked)}
+                                                        />
+                                                        <span>{item.item_review}</span>
+                                                    </label>
+                                                ))
+                                            ) : (
+                                                <p className="no-results">Nenhum Recurso encontrado</p>
+                                            )}
                                         </div>
                                     </div>
 
-                                    <button type="submit" className="submit-button">
-                                        Enviar Avaliação
+                                    <button type="submit" className="submit-button" disabled={isSubmitting}>
+                                        {isSubmitting ? 'Enviando...' : 'Enviar Avaliação'}
                                     </button>
                                 </form>
                             </div>
@@ -137,7 +195,7 @@ export default function CommentButton() {
                 </>
             ) : (
                 <Link href="/auth/login">
-                    <button className="comment-button" onClick={() => setIsOpen(true)}>
+                    <button className="comment-button">
                         <MessageCircleMore />
                         <span className="tooltip">Avaliar</span>
                     </button>

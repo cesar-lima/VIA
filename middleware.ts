@@ -62,8 +62,32 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith(route)
   )
 
+  // Rotas exclusivas para admin
+  const adminRoutes = ['/pages/admin']
+  const isAdminRoute = adminRoutes.some(route => 
+    request.nextUrl.pathname.startsWith(route)
+  )
+
   // Se tentar acessar rota protegida sem estar logado
   if (isProtectedRoute && !user) {
+    return NextResponse.redirect(new URL('/auth/login', request.url))
+  }
+
+  // Se tentar acessar rota de admin
+  if (isAdminRoute && user) {
+    const { data: userData } = await supabase
+      .from('user')
+      .select('admin')
+      .eq('email', user.email)
+      .single()
+
+    if (!userData || !userData.admin) {
+      return NextResponse.redirect(new URL('/', request.url))
+    }
+  }
+
+  // Se tentar acessar rota de admin sem estar logado
+  if (isAdminRoute && !user) {
     return NextResponse.redirect(new URL('/auth/login', request.url))
   }
 
